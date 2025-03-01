@@ -2,6 +2,7 @@ import {
   AI_NAME,
   OWNER_NAME,
   OWNER_DESCRIPTION,
+  AI_DESCRIPTION,
   AI_ROLE,
   AI_TONE,
 } from "@/configuration/identity";
@@ -80,7 +81,7 @@ export function HYDE_PROMPT(chat: Chat) {
 
   Conversation history:
   ${mostRecentMessages
-    .map((message) => `${message.role}: ${message.content}`)
+    .map((message: { role: any; content: any; }) => `${message.role}: ${message.content}`)
     .join("\n")}
   `;
 }
