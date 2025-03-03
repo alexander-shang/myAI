@@ -2,7 +2,6 @@ import {
   AI_NAME,
   OWNER_NAME,
   OWNER_DESCRIPTION,
-  AI_DESCRIPTION,
   AI_ROLE,
   AI_TONE,
 } from "@/configuration/identity";
