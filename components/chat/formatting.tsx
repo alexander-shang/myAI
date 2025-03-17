@@ -11,7 +11,7 @@ export function Formatting({ message }: { message: DisplayMessage }) {
   const processedContent = preprocessLaTeX(message.content);
   const components = {
     a: ({ href, children }: { href?: string; children: React.ReactNode }) => (
-      <a href={href} className="text-blue-500 underline hover:text-blue-700" target="_blank" rel="noopener noreferrer">
+      <a href={href} className="text-blue-600 underline hover:text-blue-700" target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     ),
