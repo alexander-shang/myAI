@@ -6,31 +6,15 @@ import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 import { preprocessLaTeX, renderCitations } from "@/utilities/formatting";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import Link from "next/link";
-
-function formatMessageWithLinks(text: string) {
-  const linkRegex = /(https?:\/\/[^\s]+)/g;
-  const parts = text.split(linkRegex);
-
-  return parts.map((part, index) =>
-    part.match(linkRegex) ? (
-      <Link
-        key={index}
-        href={part}
-        className="text-blue-500 underline hover:text-blue-700"
-        target="_blank"
-      >
-        {part}
-      </Link>
-    ) : (
-      part
-    )
-  );
-}
 
 export function Formatting({ message }: { message: DisplayMessage }) {
   const processedContent = preprocessLaTeX(message.content);
   const components = {
+    a: ({ href, children }: { href?: string; children: React.ReactNode }) => (
+      <a href={href} className="text-blue-500 underline hover:text-blue-700" target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    ),
     code: ({ children, className, node, ...rest }: any) => {
       const match = /language-(\w+)/.exec(className || "");
       return match ? (
@@ -48,7 +32,7 @@ export function Formatting({ message }: { message: DisplayMessage }) {
       );
     },
     p: ({ children }: { children: React.ReactNode }) => {
-      return <p>{formatMessageWithLinks(String(children))}</p>;
+      return renderCitations(children, message.citations);
     },
   };
   return (
@@ -62,5 +46,3 @@ export function Formatting({ message }: { message: DisplayMessage }) {
     </ReactMarkdown>
   );
 }
-
-
