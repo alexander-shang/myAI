@@ -1,3 +1,4 @@
+import Fuse from "fuse.js";
 import {
   AI_NAME,
   OWNER_NAME,
